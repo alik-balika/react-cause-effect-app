@@ -79,16 +79,16 @@ const PageContent = () => {
           <></>
         )}
       </Modal>
-      <div
-        style={{
-          position: "fixed",
-          top: "50%",
-          right: "10%",
-          transform: "translateY(-50%)",
-          width: "60%",
-        }}
-      >
-        {!isSmallScreen && selectedPerson ? (
+      {!isSmallScreen && selectedPerson ? (
+        <div
+          style={{
+            position: "fixed",
+            top: "50%",
+            right: "10%",
+            transform: "translateY(-50%)",
+            width: "60%",
+          }}
+        >
           <Box sx={boxStyle}>
             <Typography
               variant="h4"
@@ -103,10 +103,16 @@ const PageContent = () => {
               {selectedPerson.address}
             </Typography>
           </Box>
-        ) : (
-          !isSmallScreen && <p>Please select a name in the list :D</p>
-        )}
-      </div>
+        </div>
+      ) : (
+        !isSmallScreen && (
+          <p
+            style={{ display: "flex", alignItems: "center", margin: "0 auto" }}
+          >
+            Please select a name in the list :D
+          </p>
+        )
+      )}
     </Box>
   );
 };

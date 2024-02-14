@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { modalStyle, people } from "../data.js";
+import { boxStyle, modalStyle, people } from "../data.js";
 import {
   Box,
   List,
@@ -8,24 +8,36 @@ import {
   ListItemText,
   Modal,
   Typography,
+  useTheme,
 } from "@mui/material";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const PageContent = () => {
   const [open, setOpen] = useState(false);
   const [selectedPerson, setSelectedPerson] = useState(null);
 
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+
   const handleOpen = (person) => {
     setSelectedPerson(person);
+    if (!isSmallScreen) return;
     setOpen(true);
   };
   const handleClose = () => setOpen(false);
 
   return (
-    <>
+    <Box
+      sx={{
+        display: "flex",
+        // alignItems: "center",
+      }}
+    >
       <List
         sx={{
           width: {
             md: "300px",
+            xs: "100%",
           },
         }}
       >
@@ -63,7 +75,29 @@ const PageContent = () => {
           <></>
         )}
       </Modal>
-    </>
+      <div
+        style={{
+          position: "fixed",
+          top: "50%",
+          right: "10%",
+          transform: "translateY(-50%)",
+          width: "60%",
+        }}
+      >
+        {!isSmallScreen && selectedPerson ? (
+          <Box sx={boxStyle}>
+            <Typography variant="h4">{selectedPerson.name}</Typography>
+            <Typography variant="h5">{selectedPerson.birthday}</Typography>
+            <Typography variant="h6">{selectedPerson.phoneNumber}</Typography>
+            <Typography variant="h6" sx={{ marginTop: "10px" }}>
+              {selectedPerson.address}
+            </Typography>
+          </Box>
+        ) : (
+          !isSmallScreen && <p>Please select a name in the list :D</p>
+        )}
+      </div>
+    </Box>
   );
 };
 

@@ -133,3 +133,17 @@ export const modalStyle = {
   p: 4,
   textAlign: "center",
 };
+
+export const boxStyle = {
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "space-evenly",
+  alignItems: "center",
+  width: "100%",
+  height: "500px",
+  bgcolor: "background.paper",
+  borderRadius: "10px",
+  boxShadow: 10,
+  p: 4,
+  textAlign: "center",
+};

@@ -15,6 +15,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 const PageContent = () => {
   const [open, setOpen] = useState(false);
   const [selectedPerson, setSelectedPerson] = useState(null);
+  const [hoveredName, setHoveredName] = useState(null);
 
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
@@ -30,7 +31,6 @@ const PageContent = () => {
     <Box
       sx={{
         display: "flex",
-        // alignItems: "center",
       }}
     >
       <List
@@ -45,7 +45,11 @@ const PageContent = () => {
           <ListItem
             key={index}
             divider
-            sx={{ borderRight: "1px solid rgba(0, 0, 0, 0.12)" }}
+            sx={{
+              borderRight: "1px solid rgba(0, 0, 0, 0.12)",
+              background: person.name === selectedPerson?.name ? "yellow" : "",
+              border: person.name === hoveredName ? "3px solid red" : "",
+            }}
           >
             <ListItemButton
               sx={{
@@ -86,7 +90,13 @@ const PageContent = () => {
       >
         {!isSmallScreen && selectedPerson ? (
           <Box sx={boxStyle}>
-            <Typography variant="h4">{selectedPerson.name}</Typography>
+            <Typography
+              variant="h4"
+              onMouseOver={() => setHoveredName(selectedPerson.name)}
+              onMouseLeave={() => setHoveredName(null)}
+            >
+              {selectedPerson.name}
+            </Typography>
             <Typography variant="h5">{selectedPerson.birthday}</Typography>
             <Typography variant="h6">{selectedPerson.phoneNumber}</Typography>
             <Typography variant="h6" sx={{ marginTop: "10px" }}>
